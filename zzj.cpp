@@ -5,9 +5,9 @@
  * @version 0.6
  * @date 2024-08-16
  *
- * 
+ *
  * @copyright Abandon copy
- * 
+ *
  * @note Log 	 (thread safe)
  * 		 Color
  */
@@ -21,9 +21,9 @@
 #include <string_view>
 #include <source_location>
 #include <filesystem>
-#include <thread>
-#include <mutex>
-#include <complex>
+// #include <thread>
+// #include <mutex>
+// #include <complex>
 
 #define _ZZJ_NAMESPACE_BEGIN namespace zzj {
 #define _ZZJ_NAMESPACE_END   }
@@ -51,9 +51,9 @@ enum class ColorName {
 };
 
 // main LogCtrl
-struct LogCtrlSettings 
+struct LogCtrlSettings
 {
-	bool is_Log { true }; 
+	bool is_Log { true };
 	bool is_ToFile { false };
 
 	// LogTerminalCtrl
@@ -105,7 +105,7 @@ private:
 	// inline static std::mutex ms_mutex;
 // functions
 public:
-	Log(std::string_view message, ColorName displayColor, 
+	Log(std::string_view message, ColorName displayColor,
 			const std::source_location& location);
 	~Log() = default;
 // member functions
@@ -118,10 +118,10 @@ public:
 /***************************************************************************************** */
 
 Log::Log(std::string_view message, ColorName displayColor = ColorName::YELLOW,
-			const std::source_location& location = std::source_location::current() ) 
-	: m_outMessage { LogCtrl.LogTerminalCtrl.g_initialMessage }, m_message { message }, 
+			const std::source_location& location = std::source_location::current() )
+	: m_outMessage { LogCtrl.LogTerminalCtrl.g_initialMessage }, m_message { message },
 		m_location { location }, m_color { displayColor }
-{	
+{
 	if (LogCtrl.is_Log) {
 		if (LogCtrl.LogTerminalCtrl.is_logMessage) m_outMessage += std::format("[Msg:{}]", m_message);
 		if (LogCtrl.LogTerminalCtrl.is_logFileName) m_outMessage += std::format("[File:{}]", m_location.file_name());
@@ -157,7 +157,7 @@ Color::~Color()
 
 void Color::display()
 {
-	Color(m_colorName);
+	Color tempColor { m_colorName };
 }
 
 void Color::switchOutFrontColor(ColorName colorName)
